@@ -8,14 +8,16 @@ import { WatchListContextProvider } from "./context/watchListContext";
 
 export default function App() {
   return (
-    <div>
-      <WatchListContextProvider>
-        <BrowserRouter>
-          <Header />
-          <Route path="/" exact component={CoinSummaryPage} />
-          {/* <Route path="/details" component={CoinDetailPage} /> */}
-        </BrowserRouter>
-      </WatchListContextProvider>
-    </div>
+    <>
+      <div className="container">
+        <WatchListContextProvider>
+          <BrowserRouter>
+            <Header />
+            <Route path="/" exact component={CoinSummaryPage} />
+            <Route path="/coins/:id" component={CoinDetailPage} />
+          </BrowserRouter>
+        </WatchListContextProvider>
+      </div>
+    </>
   );
 }

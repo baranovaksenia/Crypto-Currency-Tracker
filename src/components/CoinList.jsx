@@ -5,7 +5,7 @@ import Coin from "./Coin";
 
 export default function CoinList() {
   const [coins, setCoins] = useState([]);
-  const { watchList } = useContext(WatchListContext);
+  const { watchList, deleteCoin } = useContext(WatchListContext);
   const [isLoading, setIsLoading] = useState(true);
   console.log(watchList);
 
@@ -21,8 +21,11 @@ export default function CoinList() {
       setCoins(response.data);
       setIsLoading(false);
     };
-    fetchData();
-  }, []);
+
+    if (watchList.length  > 0) {
+      fetchData();
+    } else setCoins([]);
+  }, [watchList]);
 
   const renderCoins = () => {
     if (isLoading) {
@@ -31,7 +34,7 @@ export default function CoinList() {
     return (
       <ul className="coinlist list-group mt-2">
         {coins.map((coin) => {
-          return <Coin key={coin.id} coin={coin} />;
+          return <Coin key={coin.id} coin={coin} deleteCoin={deleteCoin} />;
         })}
       </ul>
     );
